@@ -132,7 +132,7 @@
      /**
       * Get All user Available In Database
       */
-     userModel.prototype.getAllUser = ( data , callback) => {
+     userModel.prototype.getAllUser = ( data,callback) => {
          user.find({},(err,result) => {
             if(err){
                 callback(err)

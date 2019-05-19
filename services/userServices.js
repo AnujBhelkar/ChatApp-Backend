@@ -86,14 +86,14 @@ exports.getEmail =(data,callback) =>{
 
 exports.getAllUsers =(data,callback) =>{
     try{
-        userModel.getAllUsers(data, (err,result) =>{
+        userModel.getAllUser(data, (err,result) =>{
             if(err){
                 console.log("Log Service Error ")
-                res(err)
+                callback(err)
             }
             else{
                 console.log("Service In", result);
-                res(null,result)
+                callback(null,result)
             }
         })
     }

@@ -57,6 +57,35 @@ exports.login = (req, res) => {
  * @param {*} req 
  * @param {*} res 
  */
+exports.getAllUsers = (req,res) => {
+    try {
+        var responseResult = {};
+        userService.getAllUsers(req.body, (err, result) => {
+            if (err) {
+                //console.log(req.body);
+                
+                responseResult.success = false;
+                responseResult.error = err;
+                res.status(400).send(responseResult);
+            }
+            else {
+                responseResult.success = true;
+                responseResult.result = result;
+                res.status(200).send(responseResult)
+            }
+        })
+    } catch (err) {
+        res.send(err);
+    }
+
+}
+
+
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
 exports.forgetPassword = (req,res) => {
     try {
         var responseResult = {};
