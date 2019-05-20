@@ -102,6 +102,29 @@ exports.getAllUsers =(data,callback) =>{
     }
  }
 
+  /**
+ * @param {*} data
+ * @param {*} callback
+ */
+
+exports.getUserEmail =(data,callback) =>{
+    try{
+        userModel.getEmail(data, (err,result) =>{
+            if(err){
+                console.log("Log Service Error ")
+                callback(err)
+            }
+            else{
+                console.log("Service In", result);
+                callback(null,result)
+            }
+        })
+    }
+    catch(error){
+        callback.send(error);
+    }
+ }
+
  /**
  * @param {*} data
  * @param {*} callback

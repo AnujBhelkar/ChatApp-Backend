@@ -8,11 +8,11 @@ let mongoose =require('mongoose')
 
 let Schema = mongoose.Schema({
     
-    'senderId'   : {
+    senderId   : {
         type        : String,
         require     : [true , "Sender id Required For Chat "] 
     },
-    'receiverId' : {
+    receiverId : {
         type        : String,
         require     : [true,"Receiver id Required For Chat "]
     },
@@ -20,7 +20,12 @@ let Schema = mongoose.Schema({
         type        : String,
     require         : [true, " Message should required"] 
     }
-})
+},
+
+    {
+        timestamps   : true
+    }
+)
 
 var chat = mongoose.model("chat", Schema);
 
@@ -29,21 +34,21 @@ function chatModel() { }
  * store chat into database
  */
 chatModel.prototype.chatting = (data, callback) => {
-    console.log("chat data --->" + data)
+    console.log("chat data --->" , data)
     try{
         var newChat = new chat({
             'senderId'    : data.senderId,
             'receiverId'  : data.receiverId,
             'message'     : data.message
         })
-        chat.save((err,res) => {
+        newChat.save((err,res) => {
             if(err){
                 console.log("Message Save Error")
                 callback(err)
             }
             else{
                 console.log("message Saved Successfully !!")
-                callback(null, data)
+                callback(null, res)
             }
         })
     }
@@ -60,7 +65,6 @@ chatModel.prototype.getAllUserChat = (data,callback) => {
         }
         else{
             callback(null,res)
-            console.log(res)
         }
     })
 }

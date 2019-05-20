@@ -6,44 +6,49 @@
  ****************************************************************************************/
 
  let service = require('../services/chatServices');
- 
- exports.addMessage = (data,callback) =>{
-    /**
-     * @param {*} data
-     * @param {*} callback
-     */
-        service.addMessage(data,(err,result) => {
-            var response = {};
-            if(err){
-                response.success = false;
-                response.error = err;
-                callback.status(400).response;
+ exports.addMessage = (req,res) => {
+     //console.log('controller' , req)
+    try {
+        var responseResult = {};
+        service.addMessage(req.body, (err, result) => {
+            if (err) {
+                //console.log(req.body);
+                
+                responseResult.success = false;
+                responseResult.error = err;
+                res.status(400).send(responseResult);
             }
-            else{
-                response.success = true;
-                response.result = result;
-                callback.status(200).response;
-
+            else {
+                responseResult.success = true;
+                responseResult.result = result;
+                res.status(200).send(responseResult)
             }
         })
- }
- exports.getAllUserChat = (data,callback) =>{
-    /**
-     * @param {*} data
-     * @param {*} callback
-     */
-        service.getAllUserChat(data,(err,result) => {
-            var response = {};
-            if(err){
-                response.success = false;
-                response.error = err;
-                callback.status(400).response;
-            }
-            else{
-                response.success = true;
-                response.result = result;
-                callback.status(200).response;
+    } catch (err) {
+        res.send(err);
+    }
 
-            }
-        })
- }
+}
+exports.getAllUserChat = (req,res) => {
+    //console.log('controller' , req)
+   try {
+       var responseResult = {};
+       service.getAllUserChat(req.body, (err, result) => {
+           if (err) {
+               //console.log(req.body);
+               
+               responseResult.success = false;
+               responseResult.error = err;
+               res.status(400).send(responseResult);
+           }
+           else {
+               responseResult.success = true;
+               responseResult.result = result;
+               res.status(200).send(responseResult)
+           }
+       })
+   } catch (err) {
+       res.send(err);
+   }
+
+}

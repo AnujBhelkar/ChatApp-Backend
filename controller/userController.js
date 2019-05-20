@@ -61,6 +61,32 @@ exports.getAllUsers = (req,res) => {
     try {
         var responseResult = {};
         userService.getAllUsers(req.body, (err, result) => {
+           
+            if (err) {             
+                responseResult.success = false;
+                responseResult.error = err;
+                res.status(400).send(responseResult);
+            }
+            else {
+                responseResult.success = true;
+                responseResult.result = result;
+                res.status(200).send(responseResult)
+            }
+        })
+    } catch (err) {
+        res.send(err);
+    }
+
+}
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
+exports.getUser = (req,res) => {
+    try {
+        var responseResult = {};
+        userService.getUser(req.body, (err, result) => {
             if (err) {
                 //console.log(req.body);
                 
@@ -79,7 +105,6 @@ exports.getAllUsers = (req,res) => {
     }
 
 }
-
 
 /**
  * 
