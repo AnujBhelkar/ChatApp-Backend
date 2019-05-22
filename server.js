@@ -79,33 +79,35 @@ app.get((req,res) => {
  */
 var port = process.env.port || 5000
 const server = app.listen(port, () =>{
-  console.log(' server is runing port: ' + port)
+  console.log(' server is runing port: ' , port)
 })
-/**
- * socket Connection
- */
+
 const io = require('socket.io').listen(server)
-io.sockets.on('coonection', (socket) => {
-    connections = [];
-    connections.push(socket);
-    console.log("user connected ")
-    socket.on(" new Message " ,(req) => {
-        console.log("Request In server js ===>", req)
-        chatController.addMessage(req,(err,result) => {
-            if(err){
-                console.log("Error on server When Receiving Data")
-            } 
-            else{
-                io.emit(req.receiverId,result);
-                io.emit(req.senderId,result)
-            }
+        io.sockets.on('connection', function(socket){ 
+        connections = [];
+        connections.push(socket);
+        console.log("user connected ")
+        socket.on('new_msg' ,(req) => {
+            console.log("Request In server js ===>", req)
+            chatController.addMessage(req,(err,result) => {
+                if(err){
+                    console.log("Error on server When Receiving Data")
+                } 
+                else{
+                    io.emit("Sender",result);
+                    console.log("sdeswdew",result);
+                    
+                }
+                    
+                    //io.emit(req.senderId,result)
+                
+            })
         })
     })
-})
-/**
- * socket Disconnect
- */
-io.on('disconnect', (data) => {
-    connections.splice(connections.indexOf(socket),1)
-    console.log('User disconnected')
-})
+    /**
+     * socket Disconnect
+     */
+    io.on('disconnect', (socket) => {
+        connections.splice(connections.indexOf(socket),1)
+        console.log('User disconnected')
+    })

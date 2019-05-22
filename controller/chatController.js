@@ -7,10 +7,10 @@
 
  let service = require('../services/chatServices');
  exports.addMessage = (req,res) => {
-     //console.log('controller' , req)
+     console.log('controller' , req)
     try {
         var responseResult = {};
-        service.addMessage(req.body, (err, result) => {
+        service.addMessage(req, (err, result) => {
             if (err) {
                 //console.log(req.body);
                 
@@ -21,7 +21,8 @@
             else {
                 responseResult.success = true;
                 responseResult.result = result;
-                res.status(200).send(responseResult)
+                console.log("ew",result);
+                return res(null,result);
             }
         })
     } catch (err) {

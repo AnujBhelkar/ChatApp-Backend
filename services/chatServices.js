@@ -11,6 +11,8 @@
  * @param {*} callback
  */
  exports.addMessage = (data, callback) => {
+     console.log("in service==>",data);
+     
     try{    
         chatModel.chatting(data,(err,result) => {
             if(err){
@@ -47,3 +49,7 @@
          callback(error)
      }
  }
+
+
+
+ 

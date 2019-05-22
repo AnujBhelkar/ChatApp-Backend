@@ -37,9 +37,9 @@ chatModel.prototype.chatting = (data, callback) => {
     console.log("chat data --->" , data)
     try{
         var newChat = new chat({
-            'senderId'    : data.senderId,
-            'receiverId'  : data.receiverId,
-            'message'     : data.message
+            senderId    : data.senderId,
+            receiverId  : data.receiverId,
+            message     : data.message
         })
         newChat.save((err,res) => {
             if(err){
