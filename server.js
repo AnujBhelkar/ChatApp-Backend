@@ -9,7 +9,7 @@
 /**
  * To give Path to each file
  */
-var routers = require('../Server/routes/routes')
+var routers = require('../Server/routes/routes.js')
 var express = require('express');
 var cors = require('cors')
 /**
